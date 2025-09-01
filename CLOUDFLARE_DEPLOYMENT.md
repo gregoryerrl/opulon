@@ -19,7 +19,9 @@ Set these build configuration options in Cloudflare Pages:
 **Build command**: `npm run build`
 **Build output directory**: `.next`
 **Root directory**: `/` (leave empty if repo root)
-**Node.js version**: `18.17.0`
+**Node.js version**: `20.18.0`
+
+⚠️ **Important**: Make sure to set Node.js to version `20.18.0` in Cloudflare Pages settings, as Next.js 15.5.2 requires Node.js ^18.18.0 || ^19.8.0 || >= 20.0.0
 
 ### 3. Environment Variables
 Add these environment variables in Cloudflare Pages dashboard:
@@ -82,7 +84,7 @@ Monitor your site using:
 ## Troubleshooting
 
 ### Build Errors
-- **Node.js version**: Ensure using Node.js 18.17.0
+- **Node.js version**: Ensure using Node.js 20.18.0 or higher
 - **Dependencies**: Check package.json for compatibility
 - **Environment variables**: Verify all required variables are set
 
@@ -110,7 +112,7 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.pages.dev
 - [ ] Repository connected to Cloudflare Pages
 - [ ] Build settings configured correctly
 - [ ] Environment variables added
-- [ ] Node.js version set to 18.17.0
+- [ ] Node.js version set to 20.18.0
 - [ ] GEMINI_API_KEY added (for full AI functionality)
 - [ ] Custom domain configured (if applicable)
 - [ ] SSL/TLS certificate active
