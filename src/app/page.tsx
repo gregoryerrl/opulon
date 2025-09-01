@@ -5,6 +5,7 @@ import ImageGallery from '@/components/ImageGallery'
 import FeaturedSection from '@/components/FeaturedSection'
 import CollectionShowcase from '@/components/CollectionShowcase'
 import Footer from '@/components/Footer'
+import AIAssistant from '@/components/AIAssistant'
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <CollectionShowcase />
       </main>
       <Footer />
+      <AIAssistant />
     </LenisProvider>
   )
 }
