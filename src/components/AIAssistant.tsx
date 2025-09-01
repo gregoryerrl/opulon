@@ -96,10 +96,7 @@ export default function AIAssistant() {
         setIsDemoMode(true)
       }
     } catch (err) {
-      // Don't show error for demo mode
-      if (!data.isDemo) {
-        setError(err instanceof Error ? err.message : 'An error occurred')
-      }
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setIsLoading(false)
     }

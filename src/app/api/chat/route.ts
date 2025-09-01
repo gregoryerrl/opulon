@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { OPULON_CONTEXT, vehicleInventory } from '@/lib/ai-context';
 
+// Add runtime configuration for Cloudflare Pages
+export const runtime = 'nodejs';
+
 // Mock responses for demo mode when API key is not configured
 const mockResponses: { [key: string]: string } = {
   'default': 'Welcome to Opulon! I can help you explore our luxury vehicle collection, schedule test drives, and answer any questions about our services. What would you like to know?',
@@ -125,7 +128,8 @@ Please respond as Opulon AI assistant. Be helpful, professional, and knowledgeab
     console.error('Error in chat API:', error);
     
     // Fallback to mock response on any error
-    const mockMessage = getMockResponse(body?.message || 'hello');
+    const fallbackBody = await request.json().catch(() => ({ message: 'hello' }));
+    const mockMessage = getMockResponse(fallbackBody?.message || 'hello');
     
     return NextResponse.json({ 
       message: mockMessage,
