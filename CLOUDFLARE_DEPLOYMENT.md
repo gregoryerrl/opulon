@@ -34,10 +34,17 @@ Add these environment variables in Cloudflare Pages dashboard:
 - `NEXT_PUBLIC_SITE_URL` - Your domain (e.g., `https://opulon.pages.dev`)
 
 ### 4. Compatibility Settings
-Cloudflare Pages will automatically:
-- Enable Node.js compatibility for API routes
-- Apply the `_headers` and `_redirects` configuration
-- Optimize static assets and images
+**IMPORTANT**: You must manually enable Node.js compatibility:
+
+1. In your Cloudflare Pages project settings
+2. Go to **Settings** → **Compatibility Flags**
+3. Add `nodejs_compat` to both Production and Preview environments
+4. Save and redeploy
+
+This enables:
+- Node.js compatibility for API routes
+- Proper execution of the `_headers` and `_redirects` configuration  
+- Static asset optimization
 
 ### 5. Build Process
 The build will:
@@ -114,6 +121,7 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.pages.dev
 - [ ] Build settings configured correctly
 - [ ] Environment variables added
 - [ ] Node.js version set to 20.18.0
+- [ ] **nodejs_compat compatibility flag enabled** ⚠️ **CRITICAL**
 - [ ] GEMINI_API_KEY added (for full AI functionality)
 - [ ] Custom domain configured (if applicable)
 - [ ] SSL/TLS certificate active

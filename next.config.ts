@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     return config;
   },
   
-  // Environment variables for runtime
+  // Environment variables for runtime (ensure they're available in edge runtime)
   env: {
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
   },

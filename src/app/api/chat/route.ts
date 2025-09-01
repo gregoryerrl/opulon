@@ -43,18 +43,35 @@ export async function POST(request: Request) {
 
     // Check if API key is configured
     const apiKey = process.env.GEMINI_API_KEY;
-    const isValidApiKey = apiKey && apiKey !== 'YOUR_GEMINI_API_KEY_HERE' && apiKey.length > 10;
+    
+    // Enhanced API key validation and logging
+    console.log('API Key check:', {
+      hasApiKey: !!apiKey,
+      keyLength: apiKey?.length || 0,
+      keyPrefix: apiKey?.substring(0, 8) || 'none',
+      isPlaceholder: apiKey === 'YOUR_GEMINI_API_KEY_HERE'
+    });
+    
+    const isValidApiKey = apiKey && 
+                         apiKey !== 'YOUR_GEMINI_API_KEY_HERE' && 
+                         apiKey.length > 10 &&
+                         apiKey.startsWith('AIza');
 
     if (!isValidApiKey) {
       // Use mock responses in demo mode
-      console.log('Running in demo mode - no valid API key configured');
+      console.log('Running in demo mode - API key invalid or missing');
       
       const mockMessage = getMockResponse(message);
       
       return NextResponse.json({ 
         message: mockMessage,
         timestamp: new Date().toISOString(),
-        isDemo: true
+        isDemo: true,
+        debug: {
+          hasKey: !!apiKey,
+          keyLength: apiKey?.length || 0,
+          reason: !apiKey ? 'missing' : apiKey === 'YOUR_GEMINI_API_KEY_HERE' ? 'placeholder' : apiKey.length <= 10 ? 'too_short' : !apiKey.startsWith('AIza') ? 'invalid_format' : 'unknown'
+        }
       });
     }
 
