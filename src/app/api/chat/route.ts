@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { OPULON_CONTEXT, vehicleInventory } from '@/lib/ai-context';
 
 // Add runtime configuration for Cloudflare Pages
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 // Mock responses for demo mode when API key is not configured
 const mockResponses: { [key: string]: string } = {

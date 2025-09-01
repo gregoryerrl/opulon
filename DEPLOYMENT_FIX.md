@@ -23,6 +23,7 @@ Set Node.js to `18.18.0`, `18.19.0`, or `18.20.0` in Cloudflare Pages settings.
 
 ## Files Updated
 - ✅ `.nvmrc` → Updated to Node.js 20.18.0
+- ✅ `src/app/api/chat/route.ts` → Changed runtime to 'edge' for Cloudflare Pages
 - ✅ `CLOUDFLARE_DEPLOYMENT.md` → Updated instructions
 - ✅ Build configuration → Ready for deployment
 

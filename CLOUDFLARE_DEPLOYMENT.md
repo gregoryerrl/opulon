@@ -49,7 +49,7 @@ The build will:
 
 ### Next.js Compatibility
 - **Images**: Set to unoptimized for Cloudflare compatibility
-- **API Routes**: Configured with `runtime = 'nodejs'`
+- **API Routes**: Configured with `runtime = 'edge'` for Cloudflare Pages compatibility
 - **Webpack**: Configured with Node.js fallbacks for browser compatibility
 
 ### Security Headers
@@ -90,8 +90,9 @@ Monitor your site using:
 
 ### API Route Issues
 - **CORS**: Headers are configured in `_headers` file
-- **Runtime**: API routes use `runtime = 'nodejs'`
-- **Fallbacks**: Webpack fallbacks prevent Node.js module issues
+- **Runtime**: API routes use `runtime = 'edge'` for Cloudflare Pages compatibility
+- **Edge Limitations**: Some Node.js APIs are not available in edge runtime
+- **Fallbacks**: Webpack fallbacks prevent Node.js module issues in browser
 
 ### Performance Issues
 - **Images**: Using unoptimized images for Cloudflare compatibility
