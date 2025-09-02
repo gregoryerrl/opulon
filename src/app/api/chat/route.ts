@@ -88,8 +88,10 @@ CURRENT USER MESSAGE: ${message}
 
 Please respond as Opulon AI assistant. Be helpful, professional, and knowledgeable about our luxury vehicles and services. If asked about specific vehicles, refer to our inventory. Always maintain a premium, sophisticated tone while being approachable. Keep responses concise but informative.`;
 
-    // Call Gemini API directly using REST
-    const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent', {
+    console.log('Attempting Gemini API call with key:', apiKey.substring(0, 8) + '...');
+
+    // Call Gemini API directly using REST - try stable model first
+    const geminiResponse = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -112,9 +114,15 @@ Please respond as Opulon AI assistant. Be helpful, professional, and knowledgeab
       })
     });
 
+    console.log('Gemini API response status:', geminiResponse.status);
+
     if (!geminiResponse.ok) {
       const errorData = await geminiResponse.text();
-      console.error('Gemini API error:', errorData);
+      console.error('Gemini API error:', {
+        status: geminiResponse.status,
+        statusText: geminiResponse.statusText,
+        error: errorData
+      });
       
       // If API key is invalid, use mock response
       if (geminiResponse.status === 400 || geminiResponse.status === 401 || geminiResponse.status === 403) {
@@ -122,14 +130,19 @@ Please respond as Opulon AI assistant. Be helpful, professional, and knowledgeab
           message: getMockResponse(message),
           timestamp: new Date().toISOString(),
           isDemo: true,
-          error: 'Invalid API key - using demo mode'
+          error: 'Gemini API error - using demo mode',
+          apiError: {
+            status: geminiResponse.status,
+            message: errorData
+          }
         });
       }
       
-      throw new Error(`Gemini API returned ${geminiResponse.status}`);
+      throw new Error(`Gemini API returned ${geminiResponse.status}: ${errorData}`);
     }
 
     const data = await geminiResponse.json();
+    console.log('Gemini API success, response length:', JSON.stringify(data).length);
     
     // Extract the text from Gemini response
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || 
